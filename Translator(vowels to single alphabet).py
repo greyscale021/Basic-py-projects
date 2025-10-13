@@ -1,4 +1,4 @@
-#language creator (Any vowel -> g)
+#language creator (Every vowel -> anyword)
 
 def translation (phrase):
     translated = ""
@@ -12,5 +12,6 @@ def translation (phrase):
             translated += letter
     return translated
 
-x = input("Enter a word to exchange as (from vowels): ")
+x = input("Enter a word to exchange with vowels: ")
+
 print(translation(input("Enter a phrase: ")))
