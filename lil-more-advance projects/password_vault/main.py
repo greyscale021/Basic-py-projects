@@ -34,7 +34,7 @@ def add_entry(site, username, password):
         json.dump(vault, vault_file, indent=2)
     print(f"Saved credentials for {site} (username: {username}).")
 
-def view_entry():
+def view_entries():
     ensure_vault()
     with open('vault.json', 'r') as vault_file:
         vault = json.load(vault_file)
@@ -44,8 +44,31 @@ def view_entry():
         return
     print("Saved credentials:")
     for site, credentials in vault.items():
-        print(f"/n {site}:")
+        print(f"\n {site}:")
         for account in credentials:
             decrypted_password = fernet.decrypt(account['password'].encode()).decode()
             print(f"   Username: {account['username']}")
             print(f"   Password: {decrypted_password}")
+
+def main():
+    while True:
+        print("Password vault")
+        print("1. Add new credentials")
+        print("2. View existing credentials")
+        print("3. Quit")
+
+        choice = input("Enter your choice (1,2,3): ")
+        if choice == "1":
+            site = input("Site name: ")
+            username = input("Username: ")
+            password = input("Password: ")
+            add_entry(site, username, password)
+        elif choice == "2":
+            view_entries()
+        elif choice == "3":
+            break
+        else:
+            print("Invalid choice")
+
+if __name__ == "__main__":
+    main()
